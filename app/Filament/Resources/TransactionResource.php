@@ -121,7 +121,7 @@ class TransactionResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Action::make('See transaction')
-                    ->colors('success')
+                    ->color('success')
                     ->url(
                         fn(Transaction $record): string => static::getUrl('transaction-items.index', [
                             'parent' => $record->id,
