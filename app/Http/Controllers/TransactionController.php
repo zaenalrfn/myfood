@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
+// konfigurasi default xendit
 use Xendit\Configuration;
 use Xendit\Invoice\CreateInvoiceRequest;
 use Xendit\Invoice\InvoiceApi;
 
 class TransactionController extends Controller
 {
+    // define api
     var $apiInstance = null;
 
     public function __construct()
@@ -52,11 +54,13 @@ class TransactionController extends Controller
 
     public function processPayment(Request $request)
     {
+        // string random
         $uuid = (string) Str::uuid();
 
         $sessionToken = session('payment_token');
         $requestToken = $request->input('token');
 
+        // apakah token yang dikirimkan sama dengan token yang ada di session
         if ($sessionToken !== $requestToken) {
             return redirect()->route('payment.failure');
         }
@@ -217,6 +221,7 @@ class TransactionController extends Controller
         }
     }
 
+    // untuk mengirim ke xendit webhook
     public function handleWebhook(Request $request)
     {
         $webhookToken = $request->header('x-callback-token');
