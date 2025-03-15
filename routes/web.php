@@ -52,5 +52,6 @@ Route::controller(QRController::class)->group(function () {
     Route::post('/store-qr-result', 'storeResult')->name('product.scan.store');
     // Scanner
     Route::get('/scan', ScanPage::class)->name('product.scan');
-    Route::get('/{tableNumber}', 'checkCode')->name('product.scan.table');
 });
+
+Route::get('/{tableNumber}', [QRController::class, 'checkCode'])->name('product.scan.table');
